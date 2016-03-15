@@ -1,6 +1,8 @@
 ﻿var gulp = require('gulp');
 var sass = require('gulp-sass');
 var debug = require('gulp-debug');
+var cleanCss = require('gulp-clean-css');
+var rename = require('gulp-rename');
 
 // Where is my cheese located?
 var config = {
@@ -16,5 +18,12 @@ gulp.task('bootstrap', function () {
         .pipe(sass({
             includePaths: [config.appDir]
         }))
-        .pipe(gulp.dest(config.appDir + 'Content/'))
+        .pipe(gulp.dest(config.appDir + 'css/'))
+        .pipe(cleanCss({
+           keepSpecialComments: 0
+        }))
+        .pipe(rename({
+            extname: '.min.css'
+        }))
+        .pipe(gulp.dest(config.appDir + '/css'))
 });
